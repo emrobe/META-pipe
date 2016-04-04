@@ -1,0 +1,23 @@
+syntax: glob
+
+docs/_build
+cache
+*.pyc
+.coverage
+local_env.sh
+coverage_html_report
+lwr_staging
+server.ini
+job_managers.ini
+*.pem
+*.cert
+*.key
+.venv
+*.log
+*.pid
+toolbox
+persisted_data/*
+dependencies
+job_metrics.xml
+dependency_resolvers_conf.xml
+job_metrics_conf.xml

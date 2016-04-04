@@ -1,0 +1,27 @@
+From 5105f625b482b15588ea1d361b36d84bcb8a7531 Mon Sep 17 00:00:00 2001
+From: Martin Ernstsen <martin.ernstsen@gmail.com>
+Date: Fri, 8 Mar 2013 12:21:30 +0100
+Subject: [PATCH] Add orf_start and orf_end to solr schema
+
+---
+ solr/conf/schema.xml |    4 ++++
+ 1 files changed, 4 insertions(+), 0 deletions(-)
+
+diff --git a/solr/conf/schema.xml b/solr/conf/schema.xml
+index 5398981..81789b5 100755
+--- a/solr/conf/schema.xml
++++ b/solr/conf/schema.xml
+@@ -59,6 +59,10 @@
+    <field name="kegg_tree" 			type="pint" 	indexed="true" 	stored="false" 	required="true" 	multiValued="true"		default="0"/>  		 
+    <copyField source="com_name" dest="com_name_txt"/>
+    <dynamicField name="random_*" type="random" />
++
++   <!-- Norstruct fields -->
++   <field name="orf_start"          type="pint"     indexed="false" stored="true"   required="false"    multivalue="false"/>
++   <field name="orf_end"            type="pint"     indexed="false" stored="true"   required="false"    multivalue="false"/>
+  </fields>
+ 
+  <!-- METAREP Unique Document ID   -->
+-- 
+1.7.4.1
+

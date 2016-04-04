@@ -1,0 +1,129 @@
+From f4bab9a4689b2f429d8784a0d89e123f94fa00bd Mon Sep 17 00:00:00 2001
+From: Martin Ernstsen <martin.ernstsen@gmail.com>
+Date: Thu, 28 Feb 2013 18:03:47 +0100
+Subject: [PATCH 09/12] From search results, add link to sequence view
+
+The Peptide Id links to the sequence view, which will show up in a new
+tab or window. The link only becomes visible if the dataset has the
+has_sequence column set to 1 in the MySQL database.
+---
+ app/controllers/search_controller.php         |    4 +++-
+ app/views/helpers/lucene_result_paginator.php |   24 +++++++++++++++++++++---
+ app/views/search/index.ctp                    |   14 ++++++++++----
+ 3 files changed, 34 insertions(+), 8 deletions(-)
+
+diff --git a/app/controllers/search_controller.php b/app/controllers/search_controller.php
+index 4b44e71..cc674b9 100644
+--- a/app/controllers/search_controller.php
++++ b/app/controllers/search_controller.php
+@@ -106,6 +106,8 @@ class SearchController extends AppController {
+ 								'ec_id'=>'EC ID',
+ 								'ec_src'=>'EC Source',
+ 								'hmm_id'=>'HMM',
++                                'orf_start'=>'ORF Start',
++                                'orf_end'=>'ORF End'
+ 	);
+ 
+ 	//this function lets us search the lucene index, by default it returns the first page of all results (*|*)
+@@ -650,7 +652,7 @@ class SearchController extends AppController {
+ 
+         // Clean up
+         unlink($idFilePath);
+-        unlink($fastaFilePath);
++        //unlink($fastaFilePath);
+ 	}	
+ 	
+ 	/**
+diff --git a/app/views/helpers/lucene_result_paginator.php b/app/views/helpers/lucene_result_paginator.php
+index 1fcbcf2..da9b384 100644
+--- a/app/views/helpers/lucene_result_paginator.php
++++ b/app/views/helpers/lucene_result_paginator.php
+@@ -76,7 +76,7 @@ class LuceneResultPaginatorHelper extends AppHelper {
+ 		return $this->Html->link($text, array('controller'=>$controller, $dataset,$page,$sessionQueryId));
+ 	}
+ 	
+-	function data($dataset,$hits,$page,$numHits,$limit,$sessionQueryId,$resultFields) {
++	function data($dataset,$hits,$page,$numHits,$limit,$sessionQueryId,$resultFields,$hasSequence=False) {
+ 		$html= "
+ 			<fieldset>
+ 				<legend>Search Results</legend>".$this->addPageInformation($page,$numHits,$limit)."
+@@ -101,7 +101,25 @@ class LuceneResultPaginatorHelper extends AppHelper {
+ 			
+ 			//print field values
+ 			foreach($resultFields as $fieldId => $fieldName) {
+-				$html .= "<td>".$this->printMultiValue($hit->{$fieldId})."</td>";
++                // If dataset has sequence, add link to show it in a new window
++			    if ($fieldId == "peptide_id" && $hasSequence) {
++                    // Construct url to sequence view
++                    $href = METAREP_URL_ROOT."/sequences/view/";
++                    $href .= "dataset:"."$dataset";
++                    $peptideId = $hit->{"peptide_id"};
++                    $orfStart = $hit->{"orf_start"};
++                    $orfEnd = $hit->{"orf_end"};
++                    $href .= "/peptide_id:".$peptideId;
++                    if ($orfStart && $orfEnd) {
++                        $href .= "/orf_start:".$orfStart;
++                        $href .= "/orf_end:".$orfEnd;
++                    }
++                    // Add url to page source
++                    $html .= "<td><a href=\"$href\" target=\"_blank\">".$this->printMultiValue($hit->{$fieldId})."</a></td>";
++                }
++                else {
++				    $html .= "<td>".$this->printMultiValue($hit->{$fieldId})."</td>";
++                }
+ 			}
+ 			$html .= '</tr>';
+ 		}
+@@ -123,4 +141,4 @@ class LuceneResultPaginatorHelper extends AppHelper {
+ 	}
+ }
+ 
+-?>
+\ No newline at end of file
++?>
+diff --git a/app/views/search/index.ctp b/app/views/search/index.ctp
+index 98afe23..59a8718 100644
+--- a/app/views/search/index.ctp
++++ b/app/views/search/index.ctp
+@@ -98,12 +98,11 @@
+ 			<?php echo $facet->topTenList($facets,$facetFields,$numHits);?>	
+ 					
+ 			<div class="facet-pie-panel">
+-			
+ 			<?php echo $html->div('download', $html->link($html->image("download-medium.png",array("title" => "Download Top Ten List")), array('controller'=>  'search','action'=>'dowloadFacets',$dataset,$numHits,$sessionQueryId),array('escape' => false)));?>	
+ 			<?php echo $facet->topTenPieCharts($facets,$facetFields,$numHits,"700x200");?>
+ 			</div>
++
+ 			<div class="data-panel">
+-			
+ 			<?php 
+ 			$downloadImg 		= $html->image("download-small.png",array("title" => "Download",'style'=>'float:left'));
+ 			$downloadIdsLink 	= $html->link('Download IDs',array('controller' =>  'search','action'=>'dowloadAnnotation',$dataset,$numHits,$sessionQueryId,1),array('escape' => false));
+@@ -118,9 +117,16 @@
+ 			else {
+ 				echo("<div id=\"resize-box\">$downloadImg $downloadIdsLink $downloadAllLink</div>");
+ 			}
+-			echo $luceneResultPaginator->data($dataset,$documents,$page,$numDocuments,NUM_SEARCH_RESULTS,$sessionQueryId,$resultFields);				
++
++            if ($hasSequence) {
++                echo $luceneResultPaginator->data($dataset,$documents,$page,$numDocuments,NUM_SEARCH_RESULTS,$sessionQueryId,$resultFields,True);				
++            }
++            else {
++                echo $luceneResultPaginator->data($dataset,$documents,$page,$numDocuments,NUM_SEARCH_RESULTS,$sessionQueryId,$resultFields);				
++            }
+ 			?>
+ 			</div>
++
+ 		<?php }?>
+ 	</div>
+ </div>
+@@ -159,4 +165,4 @@ echo $ajax->observeField( 'SearchField',
+ 		});
+ });
+ </script>
+-<?php echo $dialog->printSearch("dialog",$dataset) ?>	
+\ No newline at end of file
++<?php echo $dialog->printSearch("dialog",$dataset) ?>	
+-- 
+1.7.4.1
+

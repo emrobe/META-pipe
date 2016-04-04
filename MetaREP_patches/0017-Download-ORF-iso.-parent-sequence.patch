@@ -1,0 +1,89 @@
+From a8c619d47baf50e1445956a51c7c16a6d69ec71d Mon Sep 17 00:00:00 2001
+From: Martin Ernstsen <martin.ernstsen@gmail.com>
+Date: Fri, 8 Mar 2013 19:46:03 +0100
+Subject: [PATCH 17/17] Download ORF iso. parent sequence
+
+When downloading search results, if a peptide has start and end information
+(orf_start, orf_end), the ORF will be downloaded. Otherwise, the parent
+sequence will be downloaded.
+---
+ app/controllers/search_controller.php |   40 +++++++++++++++++++--------------
+ 1 files changed, 23 insertions(+), 17 deletions(-)
+
+diff --git a/app/controllers/search_controller.php b/app/controllers/search_controller.php
+index cc674b9..d4170d4 100644
+--- a/app/controllers/search_controller.php
++++ b/app/controllers/search_controller.php
+@@ -606,16 +606,15 @@ class SearchController extends AppController {
+         $this->autoRender = false;
+ 		$query = $this->Session->read($sessionQueryId);
+         
+-        // Make temporary file to store sequence ID's
+-		$idFileName    	= uniqid('tmp_').'.txt';
+-		$idFilePath		= METAREP_TMP_DIR."/$idFileName";
+-        $fh = fopen($idFilePath, 'w');
++		// Make filename for Fasta file
++		$fastaFileName 	= uniqid('jcvi_metagenomics_report_').'.fasta';
++		$fastaFilePath  = METAREP_TMP_DIR."/$fastaFileName";
+ 
+ 		// Iterate over index to avoid out-of-memory exceptions
+ 		$batchSize = 25000;
+ 		for($i = 0; $i < $numHits + $batchSize; $i += $batchSize) {
+ 			try{
+-                $documents = $this->Solr->fetch($dataset, $query, 'peptide_id', $i, $batchSize);
++                $documents = $this->Solr->fetch($dataset, $query, 'peptide_id,orf_start,orf_end', $i, $batchSize);
+ 			}
+ 			catch (Exception $e) {
+ 				$this->Session->setFlash("METAREP Lucene Query Exception. Please correct your query and try again.");
+@@ -627,18 +626,29 @@ class SearchController extends AppController {
+                 // To search the sequence store, the contig part must be retrieved
+                 $tmp = explode('_', $peptide_id);
+                 $contig = $tmp[0];
+-				fwrite($fh, "$contig"."\n");
++                $orf_start = $document->orf_start;
++                $orf_end = $document->orf_end;
++
++                // If peptide has start and end information, retrieve ORF from parent
++                // sequence, otherwise retrieve parent sequence.
++                if ($orf_start && $orf_end) {
++                    $strand = 1;
++                    // If orf_end is lower than orf_start, the ORF is on the reverse strand
++                    if ($orf_end < $orf_start) {
++                        $strand = 2;
++                        $tmp = $orf_start;
++                        $orf_start = $orf_end;
++                        $orf_end = $tmp;
++                    }
++                    exec(FASTACMD_PATH." -d ".SEQUENCE_STORE_PATH."/$projectId/$dataset/$dataset -s $contig -L $orf_start,$orf_end -S $strand >> $fastaFilePath");
++                }
++                else {
++                    exec(FASTACMD_PATH." -d ".SEQUENCE_STORE_PATH."/$projectId/$dataset/$dataset -s $contig >> $fastaFilePath");
++                }
+ 			}
+ 			unset($documents);
+ 		}
+-		fclose($fh);
+ 
+-		// Make filename for Fasta file
+-		$fastaFileName 	= uniqid('jcvi_metagenomics_report_').'.fasta';
+-		$fastaFilePath  = METAREP_TMP_DIR."/$fastaFileName";
+-
+-        // Retrieve the sequences from the sequence store
+-		exec(FASTACMD_PATH." -d ".SEQUENCE_STORE_PATH."/$projectId/$dataset/$dataset -i $idFilePath >> $fastaFilePath");
+ 		exec(LINUX_BINARY_PATH."/sed -i 's/^>lcl|/>/' $fastaFilePath");
+ 		
+ 		// Prepare download 
+@@ -649,10 +659,6 @@ class SearchController extends AppController {
+ 		header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+ 		header('Pragma: public');
+ 		readfile($fastaFilePath);				
+-
+-        // Clean up
+-        unlink($idFilePath);
+-        //unlink($fastaFilePath);
+ 	}	
+ 	
+ 	/**
+-- 
+1.7.4.1
+

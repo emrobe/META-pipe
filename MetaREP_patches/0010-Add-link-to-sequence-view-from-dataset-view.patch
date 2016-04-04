@@ -1,0 +1,83 @@
+From a632ae0eebf4396e92d5b36c1b1161ff0a7be899 Mon Sep 17 00:00:00 2001
+From: Martin Ernstsen <martin.ernstsen@gmail.com>
+Date: Thu, 28 Feb 2013 18:07:01 +0100
+Subject: [PATCH 10/12] Add link to sequence view from dataset view
+
+The Peptide ID field is made into a link if the library has the
+has_sequence column set to 1 in the MySQL database.
+---
+ app/controllers/view_controller.php |    7 ++++++-
+ app/views/view/index.ctp            |   22 +++++++++++++++++++---
+ 2 files changed, 25 insertions(+), 4 deletions(-)
+
+diff --git a/app/controllers/view_controller.php b/app/controllers/view_controller.php
+index 4a28e7c..9db5151 100644
+--- a/app/controllers/view_controller.php
++++ b/app/controllers/view_controller.php
+@@ -45,6 +45,8 @@ class ViewController extends AppController {
+ 								'ec_id'=>'EC ID',
+ 								'ec_src'=>'EC Source',
+ 								'hmm_id'=>'HMM',
++                                'orf_start'=>'ORF Start',
++                                'orf_end'=>'ORF End'
+ 								);	
+ 							
+ 								
+@@ -170,6 +172,9 @@ class ViewController extends AppController {
+ 		$this->set('sessionId',$viewSessionId);
+ 		$this->set('dataset',$dataset);
+ 		$this->set('page',$page);
++        if ($optionalDatatypes['sequence']) {
++            $this->set('hasSequence',1);
++        }
+ 	}
+ 	
+ 	function facet($dataset,$sessionId,$tabId,$limit=20) {	
+@@ -482,4 +487,4 @@ class ViewController extends AppController {
+ 		}		
+ 	}
+ }
+-?>
+\ No newline at end of file
++?>
+diff --git a/app/views/view/index.ctp b/app/views/view/index.ctp
+index b524121..47d380d 100644
+--- a/app/views/view/index.ctp
++++ b/app/views/view/index.ctp
+@@ -91,8 +91,24 @@ echo("
+ 				if(is_array($value)) {
+ 					$value = implode('<BR>',$value);
+ 				}
+-				
+-				$table .= "<td>".$value."</td>";
++                // Add link to the Peptide Id field
++			    if ($fieldId == "peptide_id" && $hasSequence) {
++                    // Construct url to sequence view
++                    $href = METAREP_URL_ROOT."/sequences/view/";
++                    $href .= "dataset:"."$dataset";
++                    $peptideId = $document->{"peptide_id"};
++                    $orfStart = $document->{"orf_start"};
++                    $orfEnd = $document->{"orf_end"};
++                    $href .= "/peptide_id:".$peptideId;
++                    if ($orfStart && $orfEnd) {
++                        $href .= "/orf_start:".$orfStart;
++                        $href .= "/orf_end:".$orfEnd;
++                    }
++				    $table .= "<td><a href=\"$href\" target=\"_blank\">".$value."</a></td>";
++                }
++                else {    
++				    $table .= "<td>".$value."</td>";
++                }
+ 			}
+ 			$table .= '</tr>';
+ 		}
+@@ -110,4 +126,4 @@ jQuery(function() {
+ 	jQuery("#view-tabs").tabs({ spinner: '<img src="/metarep/img/ajax.gif"/>' });
+ 	jQuery("#view-tabs").tabs( "option", "disabled", <?php echo('['.implode(',',$inactiveTabs).']');?>);
+ });
+-</script>	
+\ No newline at end of file
++</script>	
+-- 
+1.7.4.1
+

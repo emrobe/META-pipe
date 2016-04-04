@@ -1,0 +1,27 @@
+From 146ed39682548225543270b2346d70358fb0dbee Mon Sep 17 00:00:00 2001
+From: Martin Ernstsen <martin.ernstsen@gmail.com>
+Date: Fri, 8 Mar 2013 16:53:40 +0100
+Subject: [PATCH 14/17] Change header in sequence view
+
+Change 'Full Contig' to 'Parent Sequence' since it is not always a
+contig.
+---
+ app/views/sequences/view.ctp |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/app/views/sequences/view.ctp b/app/views/sequences/view.ctp
+index 768e50b..665a00a 100644
+--- a/app/views/sequences/view.ctp
++++ b/app/views/sequences/view.ctp
+@@ -15,7 +15,7 @@ else {
+ ?>
+ </pre>
+ 
+-<h2>Full Contig</h2>
++<h2>Parent Sequence</h2>
+ <pre>
+ <?php
+ foreach ($full_sequence as $line) {
+-- 
+1.7.4.1
+

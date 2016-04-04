@@ -1,0 +1,49 @@
+From 6a03cf17223bde34ef01e88e3fde5be982b8d258 Mon Sep 17 00:00:00 2001
+From: Martin Ernstsen <martin.ernstsen@gmail.com>
+Date: Tue, 26 Feb 2013 14:03:31 +0100
+Subject: [PATCH 06/12] Add --has_sequence command-line flag
+
+This causes the import script to set the has_sequence flag in the database
+when importing data.
+---
+ scripts/perl/metarep_loader.pl |    9 +++++++--
+ 1 files changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/scripts/perl/metarep_loader.pl b/scripts/perl/metarep_loader.pl
+index b10a5d0..56e470d 100644
+--- a/scripts/perl/metarep_loader.pl
++++ b/scripts/perl/metarep_loader.pl
+@@ -137,6 +137,7 @@ GetOptions(
+ 	'mysql_password|p=s',
+ 	'tmp_dir|y=s',	
+ 	'xml_only|x',	
++    'has_sequence',
+ 	'help|man|?',
+ 	'solr_home_dir|h=s', ## legacy argument
+ ) || pod2usage(2);
+@@ -1180,7 +1181,6 @@ sub createMetarepDataset() {
+ 	my $projectId = $args{project_id};
+ 	
+ 	my $pipeline = undef;
+-	
+ 	if($args{format} eq 'humann') {
+ 		$pipeline = 'HUMANN';
+ 	}
+@@ -1190,8 +1190,13 @@ sub createMetarepDataset() {
+ 	elsif($args{format} eq 'tab') {
+ 		$pipeline = 'DEFAULT';
+ 	}
++
++    my $has_sequence = 0;
++    if($args{has_sequence}) {
++        $has_sequence = 1;
++    }
+ 	
+-	my $query ="insert ignore into libraries (name,project_id,created,updated,pipeline,is_weighted,has_ko) VALUES (?,?,curdate(),curdate(),'$pipeline',$isWeighted,$hasKo)";
++	my $query ="insert ignore into libraries (name,project_id,created,updated,pipeline,is_weighted,has_ko,has_sequence) VALUES (?,?,curdate(),curdate(),'$pipeline',$isWeighted,$hasKo,$has_sequence)";
+ 	$log->debug("$query.");
+ 
+ 	## reconnect to avoid time-out
+-- 
+1.7.4.1
+

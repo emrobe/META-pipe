@@ -1,0 +1,119 @@
+From 3d99d6c919208add440b0d38a43c5019661ae711 Mon Sep 17 00:00:00 2001
+From: Martin Ernstsen <martin.ernstsen@gmail.com>
+Date: Thu, 28 Feb 2013 17:59:55 +0100
+Subject: [PATCH 08/12] Add simple sequence controller and view
+
+The sequence controller can extract a sequence from a Blastdb sequence
+store at a specified location. The view will give a bare-bones view
+of the sequence in fasta format.
+---
+ app/controllers/sequences_controller.php |   64 ++++++++++++++++++++++++++++++
+ app/views/sequences/view.ctp             |   25 ++++++++++++
+ 2 files changed, 89 insertions(+), 0 deletions(-)
+ create mode 100644 app/controllers/sequences_controller.php
+ create mode 100644 app/views/sequences/view.ctp
+
+diff --git a/app/controllers/sequences_controller.php b/app/controllers/sequences_controller.php
+new file mode 100644
+index 0000000..18b4923
+--- /dev/null
++++ b/app/controllers/sequences_controller.php
+@@ -0,0 +1,64 @@
++<?php
++/*
++ * Controller that can extract a sequence from a Blastdb sequence store. The
++ * sequence store must have the following path:
++ *     SEQUENCE_STORE_PATH/$projectId/$dataset/$dataset
++ * For example, if $projectId is 2, and the dataset is named VSTall, the
++ * path becomes:
++ *     SEQUENCE_STORE_PATH/2/VSTall/VSTall
++ *
++ * The peptide_id must follow Norstruct naming convention, which is of the form:
++ *     contig1234_orf6789
++ **/
++
++class SequencesController extends AppController {
++    var $name = 'Sequences';
++    var $uses = array();
++    var $components = array('Solr');
++
++    function view() {
++        $this->layout = 'empty';
++        $this->pageTitle = 'tullball';
++
++        // Get dataset and peptide id from named url parameters
++        $named_params = $this->params['named'];
++        $dataset = $named_params['dataset'];
++        $peptideId = $named_params['peptide_id'];
++
++        // Get project id needed for path to sequence store
++		$this->loadModel('Project');
++        $projectId = $this->Project->getProjectId($dataset);
++        $this->log("project id: "."$projectId");
++
++        // For the MetaPipe pipeline, peptide_id is on the form: contig01116_orf00003.
++        // To search the sequence store, the contig part must be retrieved
++        $tmp = explode('_', $peptideId);
++        $contig = $tmp[0];
++        
++        // Get the whole contig sequence
++        $commandContig = FASTACMD_PATH." -d ".SEQUENCE_STORE_PATH."/$projectId/$dataset/$dataset -s $contig";
++		exec($commandContig, $outputContig);
++        $outputContig[0] = str_replace(">lcl|", ">", $outputContig[0]);
++        $this->set('full_sequence', $outputContig);
++
++        // If the peptide has start and end information, retrieve ORF from full contig
++        if (isset($named_params['orf_start']) && isset($named_params['orf_end'])) {
++            $orf_start = $named_params['orf_start'];
++            $orf_end = $named_params['orf_end'];
++
++            // If orf_start and orf_end are specified, make sure orf_start is lowest
++            if ($orf_end < $orf_start) {
++                $tmp = $orf_start;
++                $orf_start = $orf_end;
++                $orf_end = $tmp;
++            }
++            // Get the ORF sequence
++            $commandOrf = FASTACMD_PATH." -d ".SEQUENCE_STORE_PATH."/$projectId/$dataset/$dataset -s $contig -L $orf_start,$orf_end";
++            exec($commandOrf, $outputOrf);
++            $outputOrf[0] = str_replace(">lcl|", ">", $outputOrf[0]);
++            $this->set('orf_sequence', $outputOrf);
++        }
++        $this->set('peptide_id', $peptideId);
++    }
++}
++?>
+diff --git a/app/views/sequences/view.ctp b/app/views/sequences/view.ctp
+new file mode 100644
+index 0000000..768e50b
+--- /dev/null
++++ b/app/views/sequences/view.ctp
+@@ -0,0 +1,25 @@
++<title><?php echo($peptide_id);?></title>
++<h1><?php echo($peptide_id);?></h1>
++
++<h2>ORF</h2>
++<pre>
++<?php
++if (isset($orf_sequence)) {
++    foreach ($orf_sequence as $line) {
++        echo($line."\n");
++    }
++}
++else {
++    echo("Start and end postition not available");
++}
++?>
++</pre>
++
++<h2>Full Contig</h2>
++<pre>
++<?php
++foreach ($full_sequence as $line) {
++    echo($line."\n");
++}
++?>
++</pre>
+-- 
+1.7.4.1
+

@@ -1,0 +1,149 @@
+From 0240583232d083e9556cfe776ae5bd983ba02e02 Mon Sep 17 00:00:00 2001
+From: Martin Ernstsen <martin.ernstsen@gmail.com>
+Date: Sun, 24 Feb 2013 14:56:27 +0100
+Subject: [PATCH 03/12] Enable download of sequences from search page
+
+Use Norstruct naming scheme for Peptide ID's, i.e. contig123_orf123. The
+sequences must be in a Blastdb. This SEQUENCE_STORE_PATH must be specified,
+and the sequence DB located at SEQUENCE_STORE_PATH/$projectId/$dataset/$dataset
+
+For the download link to show up, the has_sequence flag in the libraries table
+must be set.
+---
+ app/controllers/search_controller.php |   95 ++++++++++++++------------------
+ 1 files changed, 42 insertions(+), 53 deletions(-)
+
+diff --git a/app/controllers/search_controller.php b/app/controllers/search_controller.php
+index cf52dd0..4b44e71 100644
+--- a/app/controllers/search_controller.php
++++ b/app/controllers/search_controller.php
+@@ -588,6 +588,10 @@ class SearchController extends AppController {
+ 	/**
+ 	 * Download sequences in fasta format. Fetches IDs from lucene index and pulls sequences from 
+ 	 * the sequence store location defined by SEQUENCE_STORE_PATH using fastacmd
++     *
++     * Modified from JCVI version to work with naming conventions used by Norstruct,
++     * i.e. contig01234_orf01234. This probably breaks compatibility with whatever
++     * system is used at JCVI.
+ 	 *
+ 	 * @param String $dataset Dataset
+ 	 * @param int $projectId Project ID 
+@@ -597,64 +601,45 @@ class SearchController extends AppController {
+ 	 * @access public
+ 	 */
+ 	public function dowloadSequences($dataset,$projectId,$numHits,$sessionQueryId) {
+-		$this->autoRender=false;
+-		$this->loadModel('Project');
+-		
+-		//variable to preserve the original passed-in dataset
+-		$originalDataset = $dataset;
+-		
+-		//read query from session
++        $this->autoRender = false;
+ 		$query = $this->Session->read($sessionQueryId);
++        
++        // Make temporary file to store sequence ID's
++		$idFileName    	= uniqid('tmp_').'.txt';
++		$idFilePath		= METAREP_TMP_DIR."/$idFileName";
++        $fh = fopen($idFilePath, 'w');
++
++		// Iterate over index to avoid out-of-memory exceptions
++		$batchSize = 25000;
++		for($i = 0; $i < $numHits + $batchSize; $i += $batchSize) {
++			try{
++                $documents = $this->Solr->fetch($dataset, $query, 'peptide_id', $i, $batchSize);
++			}
++			catch (Exception $e) {
++				$this->Session->setFlash("METAREP Lucene Query Exception. Please correct your query and try again.");
++				$this->redirect(array('action' => 'index'),null,true);
++			}
++			foreach ($documents as $document) {
++                $peptide_id = $document->peptide_id;
++                // For the MetaPipe pipeline, peptide_id is on the form: contig01116_orf00003.
++                // To search the sequence store, the contig part must be retrieved
++                $tmp = explode('_', $peptide_id);
++                $contig = $tmp[0];
++				fwrite($fh, "$contig"."\n");
++			}
++			unset($documents);
++		}
++		fclose($fh);
+ 
+-		//specify fasta file
++		// Make filename for Fasta file
+ 		$fastaFileName 	= uniqid('jcvi_metagenomics_report_').'.fasta';
+ 		$fastaFilePath  = METAREP_TMP_DIR."/$fastaFileName";
+-		
+-		//handle populations
+-		if($this->Project->isPopulation($originalDataset)) {
+-			$this->loadModel('Population');
+-			$datasets = $this->Population->getLibraries($originalDataset);		
+-		}
+-		else {
+-			$datasets = array($originalDataset);
+-		}		
+-		
+-		foreach($datasets as $dataset) {			
+-			$idFileName    	= uniqid('tmp_').'.txt';
+-			$idFilePath		= METAREP_TMP_DIR."/$idFileName";
+-			
+-			$fh = fopen($idFilePath, 'w');
+-			
+-			//iterate over index to avoid out-of-memory exceptions
+-			$batchSize = 25000;
+-			
+-			//get rows in batches of $batchSize
+-			for($i=0;$i<$numHits+$batchSize;$i+=$batchSize) {
+-				try{
+-					//foreach batch suze query peptide ids for the given orginal dataset addign the library to the query to 
+-					//restric results to library subsets for populations
+-					$documents = $this->Solr->fetch($originalDataset,"$query AND library_id:$dataset",'peptide_id',$i,$batchSize);
+-				}
+-				catch (Exception $e) {
+-					$this->Session->setFlash("METAREP Lucene Query Exception. Please correct your query and try again.");
+-					$this->redirect(array('action' => 'index'),null,true);
+-				}
+-	
+-				foreach ( $documents as $document ) {
+-					fwrite($fh, $document->peptide_id."\n");
+-				}
+-	
+-				unset($documents);
+-			}
+-			fclose($fh);
+-			exec(FASTACMD_PATH." -d ".SEQUENCE_STORE_PATH."/$projectId/$dataset/$dataset -i $idFilePath >> $fastaFilePath");
+-			
+-			unlink($idFilePath);
+-		}	
+-		
++
++        // Retrieve the sequences from the sequence store
++		exec(FASTACMD_PATH." -d ".SEQUENCE_STORE_PATH."/$projectId/$dataset/$dataset -i $idFilePath >> $fastaFilePath");
+ 		exec(LINUX_BINARY_PATH."/sed -i 's/^>lcl|/>/' $fastaFilePath");
+ 		
+-		//prepare download 
++		// Prepare download 
+ 		header('Content-description: File Transfer');		
+ 		header('Content-type: text/plain');
+ 		header("Content-disposition: attachment; filename=$fastaFileName");
+@@ -662,6 +647,10 @@ class SearchController extends AppController {
+ 		header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+ 		header('Pragma: public');
+ 		readfile($fastaFilePath);				
++
++        // Clean up
++        unlink($idFilePath);
++        unlink($fastaFilePath);
+ 	}	
+ 	
+ 	/**
+@@ -877,4 +866,4 @@ class TooManyNamesFoundQueryException extends Exception{
+ 		return TOO_MANY_NAMES_FOUND_QUERY_EXCEPTION;
+ 	}
+ }
+-?>
+\ No newline at end of file
++?>
+-- 
+1.7.4.1
+

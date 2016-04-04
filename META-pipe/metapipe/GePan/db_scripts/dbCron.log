@@ -1,0 +1,340 @@
+###### Check software paths and directory######### 
+
+FORMATDB: '/opt/bio/ncbi/bin/formatdb'
+HMMPRESS: '/opt/local/hmmer30rc2/binaries/hmmpress'
+GUNZIP: '/bin/gunzip'
+
+##### Download db files #####
+
+Creating temporary uniprot directory
+Creating temporary pfam directory
+Download Pfam database files to /home/emr023/gepan_db/tmp_pfam/
+
+##### Format Pfam dbs #####
+
+Create Pfam output directory /home/emr023/gepan_db/pfam
+Unzipping file /home/emr023/gepan_db/tmp_pfam/Pfam-A.full.gz
+Unzipping file /home/emr023/gepan_db/tmp_pfam/Pfam-B.hmm.dat.gz
+Unzipping file /home/emr023/gepan_db/tmp_pfam/Pfam-B.hmm.gz
+Unzipping file /home/emr023/gepan_db/tmp_pfam/Pfam-A.hmm.gz
+Unzipping file /home/emr023/gepan_db/tmp_pfam/Pfam-B.gz
+Unzipping file /home/emr023/gepan_db/tmp_pfam/Pfam-A.hmm.dat.gz
+Unzipping file /home/emr023/gepan_db/tmp_pfam/active_site.dat.gz
+Calling processDat for Pfam-A
+statement = perl ./processDat.pl -f /home/emr023/gepan_db/tmp_pfam/Pfam-A.full -d /home/emr023/gepan_db/pfam -t pfam
+Removing file /home/emr023/gepan_db/tmp_pfam/Pfam-A.full
+Calling processDat for Pfam-B
+Removing file /home/emr023/gepan_db/tmp_pfam/Pfam-B
+Formating Pfam-A:
+Statement = /opt/local/hmmer30rc2/binaries/hmmpress /home/emr023/gepan_db/tmp_pfam/Pfam-A.hmm
+Formating Pfam-B:
+Statement = /opt/local/hmmer30rc2/binaries/hmmpress /home/emr023/gepan_db/tmp_pfam/Pfam-B.hmm
+Removing *.hmm files
+Moving formated files to /home/emr023/gepan_db/pfam
+Removing /home/emr023/gepan_db/tmp_pfam
+Download uniprot taxonomic divisions to /home/emr023/gepan_db/tmp_uni/
+
+##### Format uniprot db files #####
+Create uniprot output directory /home/emr023/gepan_db/tmp_uni
+Unzipping file /home/emr023/gepan_db/tmp_uni/uniprot_sprot_archaea.dat.gz
+Calling ./processDat.pl -f /home/emr023/gepan_db/tmp_uni/uniprot_sprot_archaea.dat -d /home/emr023/gepan_db/tmp_uni
+Removing file /home/emr023/gepan_db/tmp_uni/uniprot_sprot_archaea.dat
+Calling formatdb:
+/opt/bio/ncbi/bin/formatdb -i /home/emr023/gepan_db/tmp_uni/uniprot_sprot_archaea.fas -p T -t uniprot_sprot_archaea.fas
+Checking for multiple database files
+Removing file /home/emr023/gepan_db/tmp_uni/uniprot_sprot_archaea.fas
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_sprot_archaea.fas.phr to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_sprot_archaea_annotations to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_sprot_archaea.fas.psq to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_sprot_archaea.fas.pin to directory /home/emr023/gepan_db/uniprot
+Removing /home/emr023/gepan_db/tmp_uni
+
+##### Format uniprot db files #####
+Unzipping file /home/emr023/gepan_db/tmp_uni/uniprot_sprot_bacteria.dat.gz
+Calling ./processDat.pl -f /home/emr023/gepan_db/tmp_uni/uniprot_sprot_bacteria.dat -d /home/emr023/gepan_db/tmp_uni
+Removing file /home/emr023/gepan_db/tmp_uni/uniprot_sprot_bacteria.dat
+Calling formatdb:
+/opt/bio/ncbi/bin/formatdb -i /home/emr023/gepan_db/tmp_uni/uniprot_sprot_bacteria.fas -p T -t uniprot_sprot_bacteria.fas
+Checking for multiple database files
+Removing file /home/emr023/gepan_db/tmp_uni/uniprot_sprot_bacteria.fas
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_sprot_bacteria.fas.phr to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_sprot_bacteria.fas.pin to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_sprot_bacteria_annotations to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_sprot_bacteria.fas.psq to directory /home/emr023/gepan_db/uniprot
+Removing /home/emr023/gepan_db/tmp_uni
+
+##### Format uniprot db files #####
+Unzipping file /home/emr023/gepan_db/tmp_uni/uniprot_sprot_fungi.dat.gz
+Calling ./processDat.pl -f /home/emr023/gepan_db/tmp_uni/uniprot_sprot_fungi.dat -d /home/emr023/gepan_db/tmp_uni
+Removing file /home/emr023/gepan_db/tmp_uni/uniprot_sprot_fungi.dat
+Calling formatdb:
+/opt/bio/ncbi/bin/formatdb -i /home/emr023/gepan_db/tmp_uni/uniprot_sprot_fungi.fas -p T -t uniprot_sprot_fungi.fas
+Checking for multiple database files
+Removing file /home/emr023/gepan_db/tmp_uni/uniprot_sprot_fungi.fas
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_sprot_fungi.fas.phr to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_sprot_fungi.fas.pin to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_sprot_fungi.fas.psq to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_sprot_fungi_annotations to directory /home/emr023/gepan_db/uniprot
+Removing /home/emr023/gepan_db/tmp_uni
+
+##### Format uniprot db files #####
+Unzipping file /home/emr023/gepan_db/tmp_uni/uniprot_sprot_invertebrates.dat.gz
+Calling ./processDat.pl -f /home/emr023/gepan_db/tmp_uni/uniprot_sprot_invertebrates.dat -d /home/emr023/gepan_db/tmp_uni
+Removing file /home/emr023/gepan_db/tmp_uni/uniprot_sprot_invertebrates.dat
+Calling formatdb:
+/opt/bio/ncbi/bin/formatdb -i /home/emr023/gepan_db/tmp_uni/uniprot_sprot_invertebrates.fas -p T -t uniprot_sprot_invertebrates.fas
+Checking for multiple database files
+Removing file /home/emr023/gepan_db/tmp_uni/uniprot_sprot_invertebrates.fas
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_sprot_invertebrates.fas.psq to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_sprot_invertebrates.fas.pin to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_sprot_invertebrates.fas.phr to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_sprot_invertebrates_annotations to directory /home/emr023/gepan_db/uniprot
+Removing /home/emr023/gepan_db/tmp_uni
+
+##### Format uniprot db files #####
+Unzipping file /home/emr023/gepan_db/tmp_uni/uniprot_sprot_mammals.dat.gz
+Calling ./processDat.pl -f /home/emr023/gepan_db/tmp_uni/uniprot_sprot_mammals.dat -d /home/emr023/gepan_db/tmp_uni
+Removing file /home/emr023/gepan_db/tmp_uni/uniprot_sprot_mammals.dat
+Calling formatdb:
+/opt/bio/ncbi/bin/formatdb -i /home/emr023/gepan_db/tmp_uni/uniprot_sprot_mammals.fas -p T -t uniprot_sprot_mammals.fas
+Checking for multiple database files
+Removing file /home/emr023/gepan_db/tmp_uni/uniprot_sprot_mammals.fas
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_sprot_mammals.fas.psq to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_sprot_mammals.fas.pin to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_sprot_mammals_annotations to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_sprot_mammals.fas.phr to directory /home/emr023/gepan_db/uniprot
+Removing /home/emr023/gepan_db/tmp_uni
+
+##### Format uniprot db files #####
+Unzipping file /home/emr023/gepan_db/tmp_uni/uniprot_sprot_plants.dat.gz
+Calling ./processDat.pl -f /home/emr023/gepan_db/tmp_uni/uniprot_sprot_plants.dat -d /home/emr023/gepan_db/tmp_uni
+Removing file /home/emr023/gepan_db/tmp_uni/uniprot_sprot_plants.dat
+Calling formatdb:
+/opt/bio/ncbi/bin/formatdb -i /home/emr023/gepan_db/tmp_uni/uniprot_sprot_plants.fas -p T -t uniprot_sprot_plants.fas
+Checking for multiple database files
+Removing file /home/emr023/gepan_db/tmp_uni/uniprot_sprot_plants.fas
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_sprot_plants_annotations to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_sprot_plants.fas.pin to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_sprot_plants.fas.phr to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_sprot_plants.fas.psq to directory /home/emr023/gepan_db/uniprot
+Removing /home/emr023/gepan_db/tmp_uni
+
+##### Format uniprot db files #####
+Unzipping file /home/emr023/gepan_db/tmp_uni/uniprot_sprot_rodents.dat.gz
+Calling ./processDat.pl -f /home/emr023/gepan_db/tmp_uni/uniprot_sprot_rodents.dat -d /home/emr023/gepan_db/tmp_uni
+Removing file /home/emr023/gepan_db/tmp_uni/uniprot_sprot_rodents.dat
+Calling formatdb:
+/opt/bio/ncbi/bin/formatdb -i /home/emr023/gepan_db/tmp_uni/uniprot_sprot_rodents.fas -p T -t uniprot_sprot_rodents.fas
+Checking for multiple database files
+Removing file /home/emr023/gepan_db/tmp_uni/uniprot_sprot_rodents.fas
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_sprot_rodents_annotations to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_sprot_rodents.fas.pin to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_sprot_rodents.fas.phr to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_sprot_rodents.fas.psq to directory /home/emr023/gepan_db/uniprot
+Removing /home/emr023/gepan_db/tmp_uni
+
+##### Format uniprot db files #####
+Unzipping file /home/emr023/gepan_db/tmp_uni/uniprot_sprot_vertebrates.dat.gz
+Calling ./processDat.pl -f /home/emr023/gepan_db/tmp_uni/uniprot_sprot_vertebrates.dat -d /home/emr023/gepan_db/tmp_uni
+Removing file /home/emr023/gepan_db/tmp_uni/uniprot_sprot_vertebrates.dat
+Calling formatdb:
+/opt/bio/ncbi/bin/formatdb -i /home/emr023/gepan_db/tmp_uni/uniprot_sprot_vertebrates.fas -p T -t uniprot_sprot_vertebrates.fas
+Checking for multiple database files
+Removing file /home/emr023/gepan_db/tmp_uni/uniprot_sprot_vertebrates.fas
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_sprot_vertebrates_annotations to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_sprot_vertebrates.fas.psq to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_sprot_vertebrates.fas.pin to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_sprot_vertebrates.fas.phr to directory /home/emr023/gepan_db/uniprot
+Removing /home/emr023/gepan_db/tmp_uni
+
+##### Format uniprot db files #####
+Unzipping file /home/emr023/gepan_db/tmp_uni/uniprot_sprot_viruses.dat.gz
+Calling ./processDat.pl -f /home/emr023/gepan_db/tmp_uni/uniprot_sprot_viruses.dat -d /home/emr023/gepan_db/tmp_uni
+Removing file /home/emr023/gepan_db/tmp_uni/uniprot_sprot_viruses.dat
+Calling formatdb:
+/opt/bio/ncbi/bin/formatdb -i /home/emr023/gepan_db/tmp_uni/uniprot_sprot_viruses.fas -p T -t uniprot_sprot_viruses.fas
+Checking for multiple database files
+Removing file /home/emr023/gepan_db/tmp_uni/uniprot_sprot_viruses.fas
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_sprot_viruses.fas.psq to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_sprot_viruses.fas.phr to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_sprot_viruses_annotations to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_sprot_viruses.fas.pin to directory /home/emr023/gepan_db/uniprot
+Removing /home/emr023/gepan_db/tmp_uni
+
+##### Format uniprot db files #####
+Unzipping file /home/emr023/gepan_db/tmp_uni/uniprot_trembl_archaea.dat.gz
+Calling ./processDat.pl -f /home/emr023/gepan_db/tmp_uni/uniprot_trembl_archaea.dat -d /home/emr023/gepan_db/tmp_uni
+Removing file /home/emr023/gepan_db/tmp_uni/uniprot_trembl_archaea.dat
+Calling formatdb:
+/opt/bio/ncbi/bin/formatdb -i /home/emr023/gepan_db/tmp_uni/uniprot_trembl_archaea.fas -p T -t uniprot_trembl_archaea.fas
+Checking for multiple database files
+Removing file /home/emr023/gepan_db/tmp_uni/uniprot_trembl_archaea.fas
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_archaea_annotations to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_archaea.fas.phr to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_archaea.fas.pin to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_archaea.fas.psq to directory /home/emr023/gepan_db/uniprot
+Removing /home/emr023/gepan_db/tmp_uni
+
+##### Format uniprot db files #####
+Unzipping file /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.dat.gz
+Calling ./processDat.pl -f /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.dat -d /home/emr023/gepan_db/tmp_uni
+Removing file /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.dat
+Calling formatdb:
+/opt/bio/ncbi/bin/formatdb -i /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas -p T -t uniprot_trembl_bacteria.fas
+Checking for multiple database files
+Writing /home/emr023/gepan_db/uniprot//home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.list file
+Writing out temporary *.pal file.
+Removing old pal-file /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.pal
+Moving temporary pal-file.
+Removing file /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.07.pin to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.08.phr to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.10.phr to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.10.pin to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.05.psq to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.11.psq to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.03.phr to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.08.psq to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.04.phr to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria_annotations to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.11.pin to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.01.psq to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.03.pin to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.06.phr to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.07.phr to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.01.pin to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.00.psq to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.01.phr to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.11.phr to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.00.pin to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.09.phr to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.04.pin to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.08.pin to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.00.phr to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.10.psq to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.02.pin to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.09.pin to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.03.psq to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.05.pin to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.05.phr to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.06.pin to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.04.psq to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.pal to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.09.psq to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.07.psq to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.06.psq to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.02.psq to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.02.phr to directory /home/emr023/gepan_db/uniprot
+Removing /home/emr023/gepan_db/tmp_uni
+
+##### Format uniprot db files #####
+Unzipping file /home/emr023/gepan_db/tmp_uni/uniprot_trembl_fungi.dat.gz
+Calling ./processDat.pl -f /home/emr023/gepan_db/tmp_uni/uniprot_trembl_fungi.dat -d /home/emr023/gepan_db/tmp_uni
+Removing file /home/emr023/gepan_db/tmp_uni/uniprot_trembl_fungi.dat
+Calling formatdb:
+/opt/bio/ncbi/bin/formatdb -i /home/emr023/gepan_db/tmp_uni/uniprot_trembl_fungi.fas -p T -t uniprot_trembl_fungi.fas
+Checking for multiple database files
+Removing file /home/emr023/gepan_db/tmp_uni/uniprot_trembl_fungi.fas
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_fungi.fas.phr to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_fungi.fas.psq to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_fungi_annotations to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_fungi.fas.pin to directory /home/emr023/gepan_db/uniprot
+Removing /home/emr023/gepan_db/tmp_uni
+
+##### Format uniprot db files #####
+Unzipping file /home/emr023/gepan_db/tmp_uni/uniprot_trembl_invertebrates.dat.gz
+Calling ./processDat.pl -f /home/emr023/gepan_db/tmp_uni/uniprot_trembl_invertebrates.dat -d /home/emr023/gepan_db/tmp_uni
+Removing file /home/emr023/gepan_db/tmp_uni/uniprot_trembl_invertebrates.dat
+Calling formatdb:
+/opt/bio/ncbi/bin/formatdb -i /home/emr023/gepan_db/tmp_uni/uniprot_trembl_invertebrates.fas -p T -t uniprot_trembl_invertebrates.fas
+Checking for multiple database files
+Removing file /home/emr023/gepan_db/tmp_uni/uniprot_trembl_invertebrates.fas
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_invertebrates.fas.pin to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_invertebrates_annotations to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_invertebrates.fas.phr to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_invertebrates.fas.psq to directory /home/emr023/gepan_db/uniprot
+Removing /home/emr023/gepan_db/tmp_uni
+
+##### Format uniprot db files #####
+Unzipping file /home/emr023/gepan_db/tmp_uni/uniprot_trembl_mammals.dat.gz
+Calling ./processDat.pl -f /home/emr023/gepan_db/tmp_uni/uniprot_trembl_mammals.dat -d /home/emr023/gepan_db/tmp_uni
+Removing file /home/emr023/gepan_db/tmp_uni/uniprot_trembl_mammals.dat
+Calling formatdb:
+/opt/bio/ncbi/bin/formatdb -i /home/emr023/gepan_db/tmp_uni/uniprot_trembl_mammals.fas -p T -t uniprot_trembl_mammals.fas
+Checking for multiple database files
+Removing file /home/emr023/gepan_db/tmp_uni/uniprot_trembl_mammals.fas
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_mammals_annotations to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_mammals.fas.psq to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_mammals.fas.pin to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_mammals.fas.phr to directory /home/emr023/gepan_db/uniprot
+Removing /home/emr023/gepan_db/tmp_uni
+
+##### Format uniprot db files #####
+Unzipping file /home/emr023/gepan_db/tmp_uni/uniprot_trembl_plants.dat.gz
+Calling ./processDat.pl -f /home/emr023/gepan_db/tmp_uni/uniprot_trembl_plants.dat -d /home/emr023/gepan_db/tmp_uni
+Removing file /home/emr023/gepan_db/tmp_uni/uniprot_trembl_plants.dat
+Calling formatdb:
+/opt/bio/ncbi/bin/formatdb -i /home/emr023/gepan_db/tmp_uni/uniprot_trembl_plants.fas -p T -t uniprot_trembl_plants.fas
+Checking for multiple database files
+Removing file /home/emr023/gepan_db/tmp_uni/uniprot_trembl_plants.fas
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_plants_annotations to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_plants.fas.pin to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_plants.fas.psq to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_plants.fas.phr to directory /home/emr023/gepan_db/uniprot
+Removing /home/emr023/gepan_db/tmp_uni
+
+##### Format uniprot db files #####
+Unzipping file /home/emr023/gepan_db/tmp_uni/uniprot_trembl_rodents.dat.gz
+Calling ./processDat.pl -f /home/emr023/gepan_db/tmp_uni/uniprot_trembl_rodents.dat -d /home/emr023/gepan_db/tmp_uni
+Removing file /home/emr023/gepan_db/tmp_uni/uniprot_trembl_rodents.dat
+Calling formatdb:
+/opt/bio/ncbi/bin/formatdb -i /home/emr023/gepan_db/tmp_uni/uniprot_trembl_rodents.fas -p T -t uniprot_trembl_rodents.fas
+Checking for multiple database files
+Removing file /home/emr023/gepan_db/tmp_uni/uniprot_trembl_rodents.fas
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_rodents.fas.psq to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_rodents.fas.phr to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_rodents.fas.pin to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_rodents_annotations to directory /home/emr023/gepan_db/uniprot
+Removing /home/emr023/gepan_db/tmp_uni
+
+##### Format uniprot db files #####
+Unzipping file /home/emr023/gepan_db/tmp_uni/uniprot_trembl_unclassified.dat.gz
+Calling ./processDat.pl -f /home/emr023/gepan_db/tmp_uni/uniprot_trembl_unclassified.dat -d /home/emr023/gepan_db/tmp_uni
+Removing file /home/emr023/gepan_db/tmp_uni/uniprot_trembl_unclassified.dat
+Calling formatdb:
+/opt/bio/ncbi/bin/formatdb -i /home/emr023/gepan_db/tmp_uni/uniprot_trembl_unclassified.fas -p T -t uniprot_trembl_unclassified.fas
+Checking for multiple database files
+Removing file /home/emr023/gepan_db/tmp_uni/uniprot_trembl_unclassified.fas
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_unclassified.fas.pin to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_unclassified.fas.phr to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_unclassified.fas.psq to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_unclassified_annotations to directory /home/emr023/gepan_db/uniprot
+Removing /home/emr023/gepan_db/tmp_uni
+
+##### Format uniprot db files #####
+Unzipping file /home/emr023/gepan_db/tmp_uni/uniprot_trembl_vertebrates.dat.gz
+Calling ./processDat.pl -f /home/emr023/gepan_db/tmp_uni/uniprot_trembl_vertebrates.dat -d /home/emr023/gepan_db/tmp_uni
+Removing file /home/emr023/gepan_db/tmp_uni/uniprot_trembl_vertebrates.dat
+Calling formatdb:
+/opt/bio/ncbi/bin/formatdb -i /home/emr023/gepan_db/tmp_uni/uniprot_trembl_vertebrates.fas -p T -t uniprot_trembl_vertebrates.fas
+Checking for multiple database files
+Removing file /home/emr023/gepan_db/tmp_uni/uniprot_trembl_vertebrates.fas
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_vertebrates_annotations to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_vertebrates.fas.pin to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_vertebrates.fas.psq to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_vertebrates.fas.phr to directory /home/emr023/gepan_db/uniprot
+Removing /home/emr023/gepan_db/tmp_uni
+
+##### Format uniprot db files #####
+Unzipping file /home/emr023/gepan_db/tmp_uni/uniprot_trembl_viruses.dat.gz
+Calling ./processDat.pl -f /home/emr023/gepan_db/tmp_uni/uniprot_trembl_viruses.dat -d /home/emr023/gepan_db/tmp_uni
+Removing file /home/emr023/gepan_db/tmp_uni/uniprot_trembl_viruses.dat
+Calling formatdb:
+/opt/bio/ncbi/bin/formatdb -i /home/emr023/gepan_db/tmp_uni/uniprot_trembl_viruses.fas -p T -t uniprot_trembl_viruses.fas
+Checking for multiple database files
+Removing file /home/emr023/gepan_db/tmp_uni/uniprot_trembl_viruses.fas
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_viruses_annotations to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_viruses.fas.pin to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_viruses.fas.phr to directory /home/emr023/gepan_db/uniprot
+* Moving /home/emr023/gepan_db/tmp_uni/uniprot_trembl_viruses.fas.psq to directory /home/emr023/gepan_db/uniprot
+Removing /home/emr023/gepan_db/tmp_uni

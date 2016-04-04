@@ -1,0 +1,117 @@
+From f221041bbd30485c3a4d0c1fc9fd8ae927d07b99 Mon Sep 17 00:00:00 2001
+From: Martin Ernstsen <martin.ernstsen@gmail.com>
+Date: Mon, 25 Feb 2013 17:03:23 +0100
+Subject: [PATCH 05/12] Update POD to reflect actual implementation
+
+Removed several options that are not used. Update some short options that
+were not correct. Put option descriptions on separate lines like in man
+pages.
+---
+ scripts/perl/metarep_loader.pl |   63 ++++++++++++++++++++-------------------
+ 1 files changed, 32 insertions(+), 31 deletions(-)
+
+diff --git a/scripts/perl/metarep_loader.pl b/scripts/perl/metarep_loader.pl
+index 07cf7c4..b10a5d0 100644
+--- a/scripts/perl/metarep_loader.pl
++++ b/scripts/perl/metarep_loader.pl
+@@ -40,65 +40,66 @@ perl scripts/perl/metarep_loader.pl --project_id 1 --project_dir data/tab --form
+ --tmp_dir /usr/local/scratch 
+ 
+ =head1 OPTIONS
+-B<--project_id, -i>
++
++=item B<--project_id, -i>
++
+ 	METAREP project id (MySQL table projects, field project_id)			
+ 			
+-B<--format, -o>
+-	specified the input mode ('tab','humann','jpmap')
++=item B<--format, -f>
+ 
+-B<--input_file, -f>
+-	input file. Needs to be specified for mode tab and humann
+-	
+-B<--project_dir, -d>
+-	input directory for JPMAP files. Needs to be specified for mode JPMAP
++	Specifies the input mode ('tab','humann','jpmap')
++
++=item B<--project_dir, -d>
++
++	Input directory for JPMAP files. Needs to be specified for mode JPMAP
++
++=item B<--sqlite_db, -q>
+ 
+-B<--sqlite_db, -q>
+ 	METAREP SQLite database
+ 	
+-B<--solr_url, -m>
++=item B<--solr_url, -m>
++
+ 	METAREP solr master server URL incl. port [default: http://localhost:8983]
+ 
+-B<--solr_slave_url, -s>
++=item B<--solr_slave_url, -s>
++
+ 	METAREP solr slave server URL incl. port [default: http://localhost:8983]
+ 
+-B<--solr_instance_dir, -w>
++=item B<--solr_instance_dir, -w>
++
+ 	Solr instance (configuration) directory (<SOLR_HOME>/metarep-solr)
+ 
+-B<--solr_data_dir, -y>
++=item B<--solr_data_dir, -h>
++
+ 	Solr index directory [default: <solr-instance-dir>/data]
+ 	
+-B<--solr_max_mem, -z>
++=item B<--solr_max_mem, -z>
++
+ 	Solr maximum memory allocation [default: 1G]
+ 	
+-B<--mysql_host, -s>
++=item B<--mysql_host, -m>
++
+ 	METAREP MySQL host incl. port [default: localhost:3306]
+ 
+-B<--mysql_db, -b>
++=item B<--mysql_db, -b>
++
+ 	METAREP MySQL database name [default: metarep]
+ 	
+-B<--mysql_username, -u>
++=item B<--mysql_username, -u>
++
+ 	METAREP MySQL username
+ 	
+-B<--mysql_password, -p>
++=item B<--mysql_password, -p>
++
+ 	METAREP MySQL password
+ 
+-B<--go_db, -g>
+-	Gene Ontology database name [default: gene_ontology]	
++=item B<--tmp_dir, -y>
+ 
+-B<--go_username, -e>
+-	Gene Ontology MySQL username [default: mysql_username]
+-	
+-B<--go_password, -f>
+-	Gene Ontology MySQL password [default: mysql_password]	
+-	
+-B<--tmp_dir, -y>
+ 	Directory to store temporary files (XML files generated before the Solr load)
+ 
+-B<--xml_only, -x>
+-	Useful for debugging. Generates only XML files in the specified tmp directory without pushing the data to the Solr server. 
++=item B<--xml_only, -x>
+ 
+-B<--max_num_docs, -x>
+-	The maximum number of docs to split XML files into.
++	Useful for debugging. Generates only XML files in the specified tmp directory without pushing the data to the Solr server. 
+ 
+ 
+ =head1 AUTHOR
+-- 
+1.7.4.1
+

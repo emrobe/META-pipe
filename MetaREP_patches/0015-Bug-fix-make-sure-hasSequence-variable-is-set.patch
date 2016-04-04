@@ -1,0 +1,26 @@
+From 389d12fae2e710b656220426bfefa83817e1eace Mon Sep 17 00:00:00 2001
+From: Martin Ernstsen <martin.ernstsen@gmail.com>
+Date: Fri, 8 Mar 2013 19:37:18 +0100
+Subject: [PATCH 15/17] Bug fix: make sure hasSequence variable is set
+
+---
+ app/controllers/view_controller.php |    3 +++
+ 1 files changed, 3 insertions(+), 0 deletions(-)
+
+diff --git a/app/controllers/view_controller.php b/app/controllers/view_controller.php
+index 9db5151..a4702af 100644
+--- a/app/controllers/view_controller.php
++++ b/app/controllers/view_controller.php
+@@ -175,6 +175,9 @@ class ViewController extends AppController {
+         if ($optionalDatatypes['sequence']) {
+             $this->set('hasSequence',1);
+         }
++        else {
++            $this->set('hasSequence',0);
++        }
+ 	}
+ 	
+ 	function facet($dataset,$sessionId,$tabId,$limit=20) {	
+-- 
+1.7.4.1
+

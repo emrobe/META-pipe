@@ -1,0 +1,24 @@
+<tool id="tool1" version="0.1">
+  <configfiles>
+    <configfile name="config1">
+      --option1='Hello'
+    </configfile>
+  </configfiles>
+  <command interpretr="python">tool1_wrapper.py --config $config1</command>
+  <validators>
+    <command_validator>
+      <literal>python</literal>
+      <tool_wrapper name="tool1_wrapper.py" />
+      <parameter name="--config">
+        <configfile name="config1" />
+      </parameter>
+    </command_validator>
+    <configfile_validator name="config1">
+      <regex value="\s*" />
+      <parameter name="--option1">
+        <literal value="Hello" single_quote="true" />
+      </parameter>
+      <regex value="\s*" />
+    </configfile_validator>
+  </validators>
+</tool>

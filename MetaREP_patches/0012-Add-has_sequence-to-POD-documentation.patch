@@ -1,0 +1,27 @@
+From 96c070eb2737b2268ebcb2b8461f0e7e4aded842 Mon Sep 17 00:00:00 2001
+From: Martin Ernstsen <martin.ernstsen@gmail.com>
+Date: Tue, 5 Mar 2013 16:17:38 +0100
+Subject: [PATCH 12/12] Add has_sequence to POD documentation
+
+---
+ scripts/perl/metarep_loader.pl |    4 ++++
+ 1 files changed, 4 insertions(+), 0 deletions(-)
+
+diff --git a/scripts/perl/metarep_loader.pl b/scripts/perl/metarep_loader.pl
+index 0c1182e..f8fcdb0 100644
+--- a/scripts/perl/metarep_loader.pl
++++ b/scripts/perl/metarep_loader.pl
+@@ -97,6 +97,10 @@ perl scripts/perl/metarep_loader.pl --project_id 1 --project_dir data/tab --form
+ 
+ 	Directory to store temporary files (XML files generated before the Solr load)
+ 
++=item B<--has_sequence>
++
++	Sequences are available for the dataset
++
+ =item B<--xml_only, -x>
+ 
+ 	Useful for debugging. Generates only XML files in the specified tmp directory without pushing the data to the Solr server. 
+-- 
+1.7.4.1
+

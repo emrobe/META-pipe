@@ -1,0 +1,45 @@
+From 78e9cbf6efec765a226c953ca29a0ade018a5f7b Mon Sep 17 00:00:00 2001
+From: Martin Ernstsen <martin.ernstsen@gmail.com>
+Date: Mon, 4 Mar 2013 16:22:03 +0100
+Subject: [PATCH 11/12] Correct fastacmd command for reverse orf's
+
+Add reverse strand flag to fastacmd when retrieving sequence with
+orf_end < orf_start.
+---
+ app/controllers/sequences_controller.php |    5 +++--
+ 1 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/app/controllers/sequences_controller.php b/app/controllers/sequences_controller.php
+index 18b4923..65bac59 100644
+--- a/app/controllers/sequences_controller.php
++++ b/app/controllers/sequences_controller.php
+@@ -28,7 +28,6 @@ class SequencesController extends AppController {
+         // Get project id needed for path to sequence store
+ 		$this->loadModel('Project');
+         $projectId = $this->Project->getProjectId($dataset);
+-        $this->log("project id: "."$projectId");
+ 
+         // For the MetaPipe pipeline, peptide_id is on the form: contig01116_orf00003.
+         // To search the sequence store, the contig part must be retrieved
+@@ -45,15 +44,17 @@ class SequencesController extends AppController {
+         if (isset($named_params['orf_start']) && isset($named_params['orf_end'])) {
+             $orf_start = $named_params['orf_start'];
+             $orf_end = $named_params['orf_end'];
++            $strand = 1;
+ 
+             // If orf_start and orf_end are specified, make sure orf_start is lowest
+             if ($orf_end < $orf_start) {
++                $strand = 2;
+                 $tmp = $orf_start;
+                 $orf_start = $orf_end;
+                 $orf_end = $tmp;
+             }
+             // Get the ORF sequence
+-            $commandOrf = FASTACMD_PATH." -d ".SEQUENCE_STORE_PATH."/$projectId/$dataset/$dataset -s $contig -L $orf_start,$orf_end";
++            $commandOrf = FASTACMD_PATH." -d ".SEQUENCE_STORE_PATH."/$projectId/$dataset/$dataset -s $contig -L $orf_start,$orf_end -S $strand";
+             exec($commandOrf, $outputOrf);
+             $outputOrf[0] = str_replace(">lcl|", ">", $outputOrf[0]);
+             $this->set('orf_sequence', $outputOrf);
+-- 
+1.7.4.1
+

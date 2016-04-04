@@ -1,0 +1,19 @@
+# Optional requirements used by test cases
+pycurl
+kombu
+pyyaml
+
+# For testing
+nose
+webtest
+coverage
+
+# For dev
+sphinx
+
+# For Python 2.6 tests
+unittest2
+
+# Used for code checking.
+pyflakes
+flake8

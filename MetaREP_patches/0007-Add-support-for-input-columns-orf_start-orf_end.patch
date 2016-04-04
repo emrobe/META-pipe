@@ -1,0 +1,58 @@
+From 65e72fef1af40750624f848eb877def90201403b Mon Sep 17 00:00:00 2001
+From: Martin Ernstsen <martin.ernstsen@gmail.com>
+Date: Wed, 27 Feb 2013 10:48:58 +0100
+Subject: [PATCH 07/12] Add support for input columns: orf_start, orf_end
+
+These can be used to extract the ORF sequence from a longer contig
+stored in the sequence database.
+---
+ scripts/perl/metarep_loader.pl |   12 +++++++++---
+ 1 files changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/scripts/perl/metarep_loader.pl b/scripts/perl/metarep_loader.pl
+index 56e470d..0c1182e 100644
+--- a/scripts/perl/metarep_loader.pl
++++ b/scripts/perl/metarep_loader.pl
+@@ -626,7 +626,9 @@ sub createIndexFromTabFile() {
+ 				$filter,
+ 				$koId,
+ 				$koSrc,
+-				$weight
++				$weight,
++                $orf_start,
++                $orf_end
+ 	        ) = split("\t",$_);	 
+ 
+ 	        ## handle KO
+@@ -688,7 +690,7 @@ sub createIndexFromTabFile() {
+ 			}
+ 			       
+ 	        &addDocument($peptideId,$libraryId,$comName,$comNameSrc,$goId,$goSrc,$goTree,$ecId,$ecSrc,
+-	        $hmmId,$blastSpecies,$blastEvalue,$blastEvalueExponent,$blastPid,$blastCov,$blastTree,$filter,$weight,$koId,$koSrc,$koTree);         
++	        $hmmId,$blastSpecies,$blastEvalue,$blastEvalueExponent,$blastPid,$blastCov,$blastTree,$filter,$weight,$koId,$koSrc,$koTree, $orf_start, $orf_end);         
+ 
+ 			if(($numDocuments % $args{max_num_docs}) == 0) {
+ 					&nextIndex($datsetName,$xmlSplitSet);
+@@ -800,7 +802,7 @@ sub pushIndex() {
+ 
+ sub addDocument() {
+ 	my ($peptideId,$libraryId,$comName,$comNameSrc,$goId,$goSrc,$goTree,$ecId,$ecSrc,
+-        $hmmId,$blastSpecies,$blastEvalue,$blastEvalueExponent,$blastPid,$blastCov,$blastTree,$filter,$weight,$koId,$koSrc,$koTree) = @_;	 
++        $hmmId,$blastSpecies,$blastEvalue,$blastEvalueExponent,$blastPid,$blastCov,$blastTree,$filter,$weight,$koId,$koSrc,$koTree,$orf_start,$orf_end) = @_;	 
+ 	
+ 	if($peptideId) {
+ 		print INDEX "<doc>\n";		
+@@ -821,6 +823,10 @@ sub addDocument() {
+ 		&printMultiValue('ko_src',$koSrc);
+ 		&printMultiValue('kegg_tree',$koTree);
+ 		&printSingleValue('weight',$weight);
++        if ($orf_start || $orf_end) {
++            &printSingleValue('orf_start',$orf_start);
++            &printSingleValue('orf_end',$orf_end);
++        }
+ 		
+ 		## write best Blast hit fields
+ 		&printSingleValue('blast_species',$blastSpecies);
+-- 
+1.7.4.1
+

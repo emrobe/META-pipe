@@ -1,0 +1,158 @@
+
+========================[ Jan 17, 2014  3:05 PM ]========================
+Version 2.2.21 [Jun-14-2009]
+Started database file "/home/emr023/gepan_db/tmp_uni/uniprot_sprot_archaea.fas"
+Formatted 19068 sequences in volume 0
+SUCCESS: formatted database /home/emr023/gepan_db/tmp_uni/uniprot_sprot_archaea.fas
+
+========================[ Jan 17, 2014  3:08 PM ]========================
+Version 2.2.21 [Jun-14-2009]
+Started database file "/home/emr023/gepan_db/tmp_uni/uniprot_sprot_bacteria.fas"
+Formatted 329267 sequences in volume 0
+SUCCESS: formatted database /home/emr023/gepan_db/tmp_uni/uniprot_sprot_bacteria.fas
+
+========================[ Jan 17, 2014  3:09 PM ]========================
+Version 2.2.21 [Jun-14-2009]
+Started database file "/home/emr023/gepan_db/tmp_uni/uniprot_sprot_fungi.fas"
+Formatted 31024 sequences in volume 0
+SUCCESS: formatted database /home/emr023/gepan_db/tmp_uni/uniprot_sprot_fungi.fas
+
+========================[ Jan 17, 2014  3:10 PM ]========================
+Version 2.2.21 [Jun-14-2009]
+Started database file "/home/emr023/gepan_db/tmp_uni/uniprot_sprot_invertebrates.fas"
+Formatted 25408 sequences in volume 0
+SUCCESS: formatted database /home/emr023/gepan_db/tmp_uni/uniprot_sprot_invertebrates.fas
+
+========================[ Jan 17, 2014  3:10 PM ]========================
+Version 2.2.21 [Jun-14-2009]
+Started database file "/home/emr023/gepan_db/tmp_uni/uniprot_sprot_mammals.fas"
+Formatted 19779 sequences in volume 0
+SUCCESS: formatted database /home/emr023/gepan_db/tmp_uni/uniprot_sprot_mammals.fas
+
+========================[ Jan 17, 2014  3:10 PM ]========================
+Version 2.2.21 [Jun-14-2009]
+Started database file "/home/emr023/gepan_db/tmp_uni/uniprot_sprot_plants.fas"
+Formatted 36922 sequences in volume 0
+SUCCESS: formatted database /home/emr023/gepan_db/tmp_uni/uniprot_sprot_plants.fas
+
+========================[ Jan 17, 2014  3:11 PM ]========================
+Version 2.2.21 [Jun-14-2009]
+Started database file "/home/emr023/gepan_db/tmp_uni/uniprot_sprot_rodents.fas"
+Formatted 26193 sequences in volume 0
+SUCCESS: formatted database /home/emr023/gepan_db/tmp_uni/uniprot_sprot_rodents.fas
+
+========================[ Jan 17, 2014  3:11 PM ]========================
+Version 2.2.21 [Jun-14-2009]
+Started database file "/home/emr023/gepan_db/tmp_uni/uniprot_sprot_vertebrates.fas"
+Formatted 17597 sequences in volume 0
+SUCCESS: formatted database /home/emr023/gepan_db/tmp_uni/uniprot_sprot_vertebrates.fas
+
+========================[ Jan 17, 2014  3:11 PM ]========================
+Version 2.2.21 [Jun-14-2009]
+Started database file "/home/emr023/gepan_db/tmp_uni/uniprot_sprot_viruses.fas"
+Formatted 16423 sequences in volume 0
+SUCCESS: formatted database /home/emr023/gepan_db/tmp_uni/uniprot_sprot_viruses.fas
+
+========================[ Jan 17, 2014  3:17 PM ]========================
+Version 2.2.21 [Jun-14-2009]
+Started database file "/home/emr023/gepan_db/tmp_uni/uniprot_trembl_archaea.fas"
+Formatted 748111 sequences in volume 0
+SUCCESS: formatted database /home/emr023/gepan_db/tmp_uni/uniprot_trembl_archaea.fas
+
+========================[ Jan 19, 2014  8:00 AM ]========================
+Version 2.2.21 [Jun-14-2009]
+Started database file "/home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas"
+Closing volume /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas with 3142004 sequences, 999,999,852 letters(.psq file = 1003142131 bytes; .phr file = 317309508 bytes)
+Formatted 3142004 sequences in volume 0
+Version 2.2.21 [Jun-14-2009]
+Started database file "/home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas"
+Closing volume /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.01 with 3220557 sequences, 999,999,927 letters(.psq file = 1003220868 bytes; .phr file = 325243361 bytes)
+Formatted 3220557 sequences in volume 1
+Version 2.2.21 [Jun-14-2009]
+Started database file "/home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas"
+Closing volume /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.02 with 3379361 sequences, 999,999,903 letters(.psq file = 1003379535 bytes; .phr file = 341282565 bytes)
+Formatted 3379361 sequences in volume 2
+Version 2.2.21 [Jun-14-2009]
+Started database file "/home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas"
+Closing volume /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.03 with 3371748 sequences, 999,999,907 letters(.psq file = 1003371827 bytes; .phr file = 340513652 bytes)
+Formatted 3371748 sequences in volume 3
+Version 2.2.21 [Jun-14-2009]
+Started database file "/home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas"
+Closing volume /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.04 with 3406190 sequences, 999,999,957 letters(.psq file = 1003406647 bytes; .phr file = 343992294 bytes)
+Formatted 3406190 sequences in volume 4
+Version 2.2.21 [Jun-14-2009]
+Started database file "/home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas"
+Closing volume /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.05 with 3396199 sequences, 999,999,434 letters(.psq file = 1003396210 bytes; .phr file = 342983203 bytes)
+Formatted 3396199 sequences in volume 5
+Version 2.2.21 [Jun-14-2009]
+Started database file "/home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas"
+Closing volume /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.06 with 3302018 sequences, 999,999,752 letters(.psq file = 1003302178 bytes; .phr file = 333470922 bytes)
+Formatted 3302018 sequences in volume 6
+Version 2.2.21 [Jun-14-2009]
+Started database file "/home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas"
+Closing volume /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.07 with 3434622 sequences, 999,999,672 letters(.psq file = 1003434726 bytes; .phr file = 346863926 bytes)
+Formatted 3434622 sequences in volume 7
+Version 2.2.21 [Jun-14-2009]
+Started database file "/home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas"
+Closing volume /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.08 with 3293304 sequences, 999,999,701 letters(.psq file = 1003293328 bytes; .phr file = 332590808 bytes)
+Formatted 3293304 sequences in volume 8
+Version 2.2.21 [Jun-14-2009]
+Started database file "/home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas"
+Closing volume /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.09 with 3344343 sequences, 999,999,963 letters(.psq file = 1003344556 bytes; .phr file = 337745747 bytes)
+Formatted 3344343 sequences in volume 9
+Version 2.2.21 [Jun-14-2009]
+Started database file "/home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas"
+Closing volume /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas.10 with 3313299 sequences, 999,999,722 letters(.psq file = 1003313337 bytes; .phr file = 334610303 bytes)
+Formatted 3313299 sequences in volume 10
+Version 2.2.21 [Jun-14-2009]
+Started database file "/home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas"
+Formatted 554874 sequences in volume 11
+SUCCESS: formatted database /home/emr023/gepan_db/tmp_uni/uniprot_trembl_bacteria.fas
+
+========================[ Jan 19, 2014 10:06 AM ]========================
+Version 2.2.21 [Jun-14-2009]
+Started database file "/home/emr023/gepan_db/tmp_uni/uniprot_trembl_fungi.fas"
+Formatted 2138376 sequences in volume 0
+SUCCESS: formatted database /home/emr023/gepan_db/tmp_uni/uniprot_trembl_fungi.fas
+
+========================[ Jan 19, 2014 10:49 AM ]========================
+Version 2.2.21 [Jun-14-2009]
+Started database file "/home/emr023/gepan_db/tmp_uni/uniprot_trembl_invertebrates.fas"
+Formatted 2488531 sequences in volume 0
+SUCCESS: formatted database /home/emr023/gepan_db/tmp_uni/uniprot_trembl_invertebrates.fas
+
+========================[ Jan 19, 2014 11:00 AM ]========================
+Version 2.2.21 [Jun-14-2009]
+Started database file "/home/emr023/gepan_db/tmp_uni/uniprot_trembl_mammals.fas"
+Formatted 828706 sequences in volume 0
+SUCCESS: formatted database /home/emr023/gepan_db/tmp_uni/uniprot_trembl_mammals.fas
+
+========================[ Jan 19, 2014 11:34 AM ]========================
+Version 2.2.21 [Jun-14-2009]
+Started database file "/home/emr023/gepan_db/tmp_uni/uniprot_trembl_plants.fas"
+Formatted 2082476 sequences in volume 0
+SUCCESS: formatted database /home/emr023/gepan_db/tmp_uni/uniprot_trembl_plants.fas
+
+========================[ Jan 19, 2014 11:38 AM ]========================
+Version 2.2.21 [Jun-14-2009]
+Started database file "/home/emr023/gepan_db/tmp_uni/uniprot_trembl_rodents.fas"
+Formatted 198352 sequences in volume 0
+SUCCESS: formatted database /home/emr023/gepan_db/tmp_uni/uniprot_trembl_rodents.fas
+
+========================[ Jan 19, 2014 11:39 AM ]========================
+Version 2.2.21 [Jun-14-2009]
+Started database file "/home/emr023/gepan_db/tmp_uni/uniprot_trembl_unclassified.fas"
+Formatted 164547 sequences in volume 0
+SUCCESS: formatted database /home/emr023/gepan_db/tmp_uni/uniprot_trembl_unclassified.fas
+
+========================[ Jan 19, 2014 11:48 AM ]========================
+Version 2.2.21 [Jun-14-2009]
+Started database file "/home/emr023/gepan_db/tmp_uni/uniprot_trembl_vertebrates.fas"
+Formatted 913014 sequences in volume 0
+SUCCESS: formatted database /home/emr023/gepan_db/tmp_uni/uniprot_trembl_vertebrates.fas
+
+========================[ Jan 19, 2014 12:12 PM ]========================
+Version 2.2.21 [Jun-14-2009]
+Started database file "/home/emr023/gepan_db/tmp_uni/uniprot_trembl_viruses.fas"
+Formatted 1866298 sequences in volume 0
+SUCCESS: formatted database /home/emr023/gepan_db/tmp_uni/uniprot_trembl_viruses.fas

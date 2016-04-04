@@ -1,0 +1,33 @@
+From cd613e68d3d0d23dbf3e7f1d313895f64c40d736 Mon Sep 17 00:00:00 2001
+From: Martin Ernstsen <martin.ernstsen@gmail.com>
+Date: Sun, 24 Feb 2013 16:58:35 +0100
+Subject: [PATCH 04/12] Correct error in usage string
+
+Example used --solr_master_url instead of --solr_url
+---
+ scripts/perl/metarep_loader.pl |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/scripts/perl/metarep_loader.pl b/scripts/perl/metarep_loader.pl
+index b2a741e..07cf7c4 100644
+--- a/scripts/perl/metarep_loader.pl
++++ b/scripts/perl/metarep_loader.pl
+@@ -35,7 +35,7 @@ metarep_loader.pl generates METAREP lucene indices from various input files.
+ =head1 SYNOPSIS
+ 
+ perl scripts/perl/metarep_loader.pl --project_id 1 --project_dir data/tab --format=tab --sqlite_db db/metarep.sqlite3.db 
+---solr_master_url http://localhost:1234 --solr_instance_dir <SOLR_SERVER_HOME_DIR>/metarep-solr 
++--solr_url http://localhost:1234 --solr_instance_dir <SOLR_SERVER_HOME_DIR>/metarep-solr 
+ --mysql_host localhost --mysql_db ifx_hmp_metagenomics_reports --mysql_username metarep --mysql_password metarep
+ --tmp_dir /usr/local/scratch 
+ 
+@@ -1629,4 +1629,4 @@ sub isExistingSolrCore() {
+ 	else {
+ 		return 1;
+ 	}
+-}
+\ No newline at end of file
++}
+-- 
+1.7.4.1
+

@@ -1,0 +1,11 @@
+Paste==1.7.5.1
+PasteDeploy==1.5.2
+PasteScript==1.7.5
+WebOb==1.4
+amqp==1.4.6
+anyjson==0.3.3
+drmaa==0.7.6
+kombu==3.0.21
+psutil==2.1.1
+six==1.7.3
+
